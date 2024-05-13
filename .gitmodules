@@ -1,3 +1,7 @@
 [submodule "research_cython"]
 	path = trading_math
 	url = git@github.com:TurilinAlex/research_cython.git
+
+[submodule "research_data"]
+	path = trading_data
+	url = git@github.com:TurilinAlex/research_data.git
