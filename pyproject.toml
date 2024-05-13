@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "trading-algorithm"
+version = "0.1.0"
+description = ""
+authors = ["turilin <turilin@primatlab.com>"]
+license = "BSD 3-Clause License"
+readme = "README.md"
+packages = [
+    { include = "core" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.third_party.dependencies]
+trading_math =  { path = "research_cython" }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
