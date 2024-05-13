@@ -144,9 +144,9 @@ setuptools = "^69.5.1"
 
 [package.source]
 type = "directory"
-url = "research_cython"
+url = "trading_math"
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "e86eab026be16e22a12c374286d507f1d9faffa3a2bd82027192cb61fc3d637e"
+content-hash = "44fd84f69b575d6dda8ed4b726078ebc002ba2809697fd4c5e43883a25169492"
