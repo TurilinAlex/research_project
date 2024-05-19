@@ -18,9 +18,30 @@ class BaseData:
         self.__history: dict[int, HistoryData] = {}
         self.__iteration: int = 0
 
-    # TODO convert to __repr__()
-    def print(self):
-        print(self.__history, self.__iteration)
+    def __repr__(self, interval=None):
+        _str = f"<<<<<<<<<<<{self.__class__.__name__:^19}>>>>>>>>>>>\n"
+        if interval is not None:
+            for key, value in self.__history.items():
+                _eps = f"{'eps:':>13} {value.eps:<6d}\n" if value.eps != 0 else ""
+                _str += (
+                    f"{'Iter':=<19}{key:^3d}{'':=<19}\n"
+                    f"{'interval:':>13} begin={f'{interval[key].begin:_}':<8} end={f'{interval[key].end:_}':<8}\n"
+                    + _eps
+                    + f"{'extremes:':>13} {value.extremes}\n"
+                    f"{'trends:':>13} {value.trends}\n"
+                )
+            return _str
+
+        for key, value in self.__history.items():
+            _eps = f"{'eps:':>13} {value.eps:<6d}\n" if value.eps != 0 else ""
+            _str += (
+                f"{'Iter':=<19}{key:^3d}{'':=<19}\n"
+                + _eps
+                + f"{'extremes:':>13} {value.extremes}\n"
+                f"{'trends:':>13} {value.trends}\n"
+            )
+        return _str
+
     def get_current_iter(self):
         return self.__iteration
 
