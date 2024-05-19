@@ -13,6 +13,13 @@ class BaseUnionExtremes(BaseData, ABC):
 
         self._min_extremes: MinExtremes = MinExtremes(values=values)
         self._max_extremes: MaxExtremes = MaxExtremes(values=values)
+    @property
+    def min_extremes(self):
+        return self._min_extremes
+
+    @property
+    def max_extremes(self):
+        return self._max_extremes
 
     def get_extr_eps_min(self, after_iter: int | None = None):
         return self._min_extremes.get_extr_eps_min(after_iter=after_iter)
