@@ -21,6 +21,8 @@ class BaseData:
     # TODO convert to __repr__()
     def print(self):
         print(self.__history, self.__iteration)
+    def get_current_iter(self):
+        return self.__iteration
 
     def _save_extremes(
         self,
