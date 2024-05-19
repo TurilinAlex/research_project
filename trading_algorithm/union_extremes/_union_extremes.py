@@ -8,11 +8,16 @@ from ..min_extremes.min_extremes import MinExtremes
 
 
 class BaseUnionExtremes(BaseData, ABC):
-    def __init__(self, values: np.ndarray):
+    def __init__(self, values: np.ndarray, min_extremes=None, max_extremes=None):
         super().__init__(values)
 
-        self._min_extremes: MinExtremes = MinExtremes(values=values)
-        self._max_extremes: MaxExtremes = MaxExtremes(values=values)
+        self._min_extremes: MinExtremes = (
+            MinExtremes(values=values) if min_extremes is None else min_extremes
+        )
+        self._max_extremes: MaxExtremes = (
+            MaxExtremes(values=values) if max_extremes is None else max_extremes
+        )
+
     @property
     def min_extremes(self):
         return self._min_extremes
