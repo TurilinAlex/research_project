@@ -1,10 +1,10 @@
 import numpy as np
 
+from .._base_combination_extremes import BaseCombinationExtremes
 from ..utils import merge_sorted_arrays
-from ._union_extremes import BaseUnionExtremes
 
 
-class UnionExtremes(BaseUnionExtremes):
+class UnionExtremes(BaseCombinationExtremes):
 
     # noinspection PyProtectedMember
     def extract_extremes(
@@ -26,7 +26,7 @@ class UnionExtremes(BaseUnionExtremes):
             indexes=indexes,
         )
 
-        extremes = self._union_extremes(
+        extremes = self._combination_extremes(
             min_extremes=extremes_min,
             max_extremes=extremes_max,
         )
@@ -59,7 +59,7 @@ class UnionExtremes(BaseUnionExtremes):
         indexes_max = self._max_extremes.get_extr_indexes(after_iter=after_iter)
         trends_max = self._max_extremes._extract_trends(indexes=indexes_max, eps=eps)
 
-        trends = self._union_trends(trends_min=trends_min, trends_max=trends_max)
+        trends = self._combination_trends(trends_min=trends_min, trends_max=trends_max)
         if is_save:
             self._save_trends(trends=trends, after_iter=after_iter)
             self._min_extremes._save_trends(
@@ -73,14 +73,14 @@ class UnionExtremes(BaseUnionExtremes):
 
         return trends
 
-    def _union_extremes(
+    def _combination_extremes(
         self,
         min_extremes: np.ndarray,
         max_extremes: np.ndarray,
     ):
         return merge_sorted_arrays(min_indexes=min_extremes, max_indexes=max_extremes)
 
-    def _union_trends(
+    def _combination_trends(
         self,
         trends_min: np.ndarray,
         trends_max: np.ndarray,

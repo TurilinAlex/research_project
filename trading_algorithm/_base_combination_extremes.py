@@ -2,12 +2,12 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 
-from .._base_data import BaseData
-from ..max_extremes.max_extremes import MaxExtremes
-from ..min_extremes.min_extremes import MinExtremes
+from ._base_data import BaseData
+from .max_extremes.max_extremes import MaxExtremes
+from .min_extremes.min_extremes import MinExtremes
 
 
-class BaseUnionExtremes(BaseData, ABC):
+class BaseCombinationExtremes(BaseData, ABC):
     def __init__(self, values: np.ndarray, min_extremes=None, max_extremes=None):
         super().__init__(values)
 
@@ -87,7 +87,7 @@ class BaseUnionExtremes(BaseData, ABC):
         pass
 
     @abstractmethod
-    def _union_extremes(
+    def _combination_extremes(
         self,
         min_extremes: np.ndarray,
         max_extremes: np.ndarray,
@@ -95,7 +95,7 @@ class BaseUnionExtremes(BaseData, ABC):
         pass
 
     @abstractmethod
-    def _union_trends(
+    def _combination_trends(
         self,
         min_trends: np.ndarray,
         max_trends: np.ndarray,
