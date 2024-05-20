@@ -69,6 +69,24 @@ class BaseUnionExtremes(BaseData, ABC):
         return self._max_extremes.get_trends_values_max(after_iter=after_iter)
 
     @abstractmethod
+    def extract_extremes(
+        self,
+        coincident: int,
+        start_eps: int,
+        is_save: bool = True,
+    ) -> np.ndarray:
+        pass
+
+    @abstractmethod
+    def extract_trends(
+        self,
+        eps: int,
+        after_iter: int | None = None,
+        is_save: bool = True,
+    ) -> np.ndarray:
+        pass
+
+    @abstractmethod
     def _union_extremes(
         self,
         min_extremes: np.ndarray,
