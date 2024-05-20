@@ -53,7 +53,7 @@ class UnionExtremes(BaseUnionExtremes):
         after_iter: int | None = None,
         is_save: bool = True,
     ):
-        indexes_min = self._min_extremes.get_extr_indexes_min(after_iter=after_iter)
+        indexes_min = self._min_extremes.get_extr_indexes(after_iter=after_iter)
         trends_min = self._min_extremes._extract_trends(indexes=indexes_min, eps=eps)
 
         indexes_max = self._max_extremes.get_extr_indexes(after_iter=after_iter)

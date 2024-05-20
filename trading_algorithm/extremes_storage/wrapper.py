@@ -84,7 +84,7 @@ class NodeMinExtremes(_Node, MinExtremes):
             else self.previous.get_end_index(self.get_current_iter())
         )
         self._history_interval[self.get_current_iter()] = _Interval(
-            begin=_start, end=_start + len(self.get_extr_indexes_min())
+            begin=_start, end=_start + len(self.get_extr_indexes())
         )
 
     def __repr__(self, **kwargs):

@@ -33,7 +33,7 @@ class MinExtremes(BaseMinExtremes):
         after_iter: int | None = None,
         is_save: bool = True,
     ) -> np.ndarray:
-        indexes = self.get_extr_indexes_min(after_iter=after_iter)
+        indexes = self.get_extr_indexes(after_iter=after_iter)
         trends = self._extract_trends(indexes=indexes, eps=eps)
 
         if is_save:
