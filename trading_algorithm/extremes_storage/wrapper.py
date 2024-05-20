@@ -128,7 +128,7 @@ class NodeMaxExtremes(_Node, MaxExtremes):
             else self.previous.get_end_index(self.get_current_iter())
         )
         self.__history[self.get_current_iter()] = _Interval(
-            begin=_start, end=_start + len(self.get_extr_indexes_max())
+            begin=_start, end=_start + len(self.get_extr_indexes())
         )
 
     def __repr__(self, **kwargs):

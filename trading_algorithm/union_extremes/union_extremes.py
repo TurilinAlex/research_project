@@ -56,7 +56,7 @@ class UnionExtremes(BaseUnionExtremes):
         indexes_min = self._min_extremes.get_extr_indexes_min(after_iter=after_iter)
         trends_min = self._min_extremes._extract_trends(indexes=indexes_min, eps=eps)
 
-        indexes_max = self._max_extremes.get_extr_indexes_max(after_iter=after_iter)
+        indexes_max = self._max_extremes.get_extr_indexes(after_iter=after_iter)
         trends_max = self._max_extremes._extract_trends(indexes=indexes_max, eps=eps)
 
         trends = self._union_trends(trends_min=trends_min, trends_max=trends_max)
