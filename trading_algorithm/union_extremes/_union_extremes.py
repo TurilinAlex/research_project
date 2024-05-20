@@ -32,10 +32,10 @@ class BaseUnionExtremes(BaseData, ABC):
     def get_extr_eps_max(self, after_iter: int | None = None):
         return self._max_extremes.get_extr_eps(after_iter=after_iter)
 
-    def get_extr_indexes_union(self, after_iter: int | None = None):
+    def get_extr_indexes(self, after_iter: int | None = None):
         return self._get_extr_indexes(after_iter=after_iter)
 
-    def get_extr_values_union(self, after_iter: int | None = None):
+    def get_extr_values(self, after_iter: int | None = None):
         return self._get_extr_values(after_iter=after_iter)
 
     def get_extr_indexes_min(self, after_iter: int | None = None):
@@ -50,10 +50,10 @@ class BaseUnionExtremes(BaseData, ABC):
     def get_extr_values_max(self, after_iter: int | None = None):
         return self._max_extremes.get_extr_values(after_iter=after_iter)
 
-    def get_trends_indexes_union(self, after_iter: int | None = None):
+    def get_trends_indexes(self, after_iter: int | None = None):
         return self._get_trend_indexes(after_iter=after_iter)
 
-    def get_trends_values_union(self, after_iter: int | None = None):
+    def get_trends_values(self, after_iter: int | None = None):
         return self._get_trend_values(after_iter=after_iter)
 
     def get_trends_indexes_min(self, after_iter: int | None = None):
