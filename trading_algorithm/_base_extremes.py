@@ -13,6 +13,21 @@ class BaseExtremes(BaseData, ABC):
         self._diff: list[int] | None = None
         self._marker_for_diff: list[int] | None = None
 
+    def get_extr_eps(self, after_iter: int | None = None):
+        return self._get_extr_eps(after_iter=after_iter)
+
+    def get_extr_indexes(self, after_iter: int | None = None):
+        return self._get_extr_indexes(after_iter=after_iter)
+
+    def get_extr_values(self, after_iter: int | None = None):
+        return self._get_extr_values(after_iter=after_iter)
+
+    def get_trends_indexes(self, after_iter: int | None = None):
+        return self._get_trend_indexes(after_iter=after_iter)
+
+    def get_trends_values(self, after_iter: int | None = None):
+        return self._get_trend_values(after_iter=after_iter)
+
     def _extract_extremes(
         self,
         indexes: np.ndarray,
