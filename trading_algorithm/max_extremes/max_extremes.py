@@ -5,7 +5,7 @@ from ._max_extremes import BaseMaxExtremes
 
 class MaxExtremes(BaseMaxExtremes):
 
-    def extract_max_extremes(
+    def extract_extremes(
         self,
         coincident: int,
         start_eps: int,
@@ -27,7 +27,7 @@ class MaxExtremes(BaseMaxExtremes):
 
         return eps, extremes
 
-    def extract_max_trends(
+    def extract_trends(
         self,
         eps: int,
         after_iter: int | None = None,

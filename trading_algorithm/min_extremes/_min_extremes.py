@@ -35,7 +35,7 @@ class BaseMinExtremes(BaseExtremes, ABC):
         return self._get_trend_values(after_iter=after_iter)
 
     @abstractmethod
-    def extract_min_extremes(
+    def extract_extremes(
         self,
         coincident: int,
         start_eps: int,
@@ -44,7 +44,7 @@ class BaseMinExtremes(BaseExtremes, ABC):
         pass
 
     @abstractmethod
-    def extract_min_trends(
+    def extract_trends(
         self,
         eps: int,
         after_iter: int | None = None,

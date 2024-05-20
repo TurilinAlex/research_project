@@ -5,7 +5,7 @@ from ._min_extremes import BaseMinExtremes
 
 class MinExtremes(BaseMinExtremes):
 
-    def extract_min_extremes(
+    def extract_extremes(
         self,
         coincident: int,
         start_eps: int,
@@ -27,7 +27,7 @@ class MinExtremes(BaseMinExtremes):
 
         return eps, extremes
 
-    def extract_min_trends(
+    def extract_trends(
         self,
         eps: int,
         after_iter: int | None = None,
