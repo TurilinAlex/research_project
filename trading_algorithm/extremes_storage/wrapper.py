@@ -70,6 +70,12 @@ class NodeMinExtremes(_Node, MinExtremes):
             self.get_current_iter(): _Interval(_start, _start + len(values)),
         }
 
+    def to_dict(self, **kwargs):
+        return super().to_dict(interval=self.__history)
+
+    def to_json(self, **kwargs):
+        return super().to_json(interval=self.__history)
+
     def _save_extremes(
         self,
         eps: int,
@@ -113,6 +119,12 @@ class NodeMaxExtremes(_Node, MaxExtremes):
         self.__history: dict[int, _Interval] = {
             self.get_current_iter(): _Interval(_start, _start + len(values)),
         }
+
+    def to_dict(self, **kwargs):
+        return super().to_dict(interval=self.__history)
+
+    def to_json(self, **kwargs):
+        return super().to_json(interval=self.__history)
 
     def _save_extremes(
         self,
@@ -179,6 +191,12 @@ class NodeUnionExtremes(_Node, UnionExtremes):
         self.__history: dict[int, _Interval] = {
             self.get_current_iter(): _Interval(_start, _start + len(values)),
         }
+
+    def to_dict(self, **kwargs):
+        return super().to_dict(interval=self.__history)
+
+    def to_json(self, **kwargs):
+        return super().to_json(interval=self.__history)
 
     def _save_extremes(
         self,

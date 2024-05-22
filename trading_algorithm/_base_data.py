@@ -18,6 +18,54 @@ class BaseData:
         self.__history: dict[int, HistoryData] = {}
         self.__iteration: int = 0
 
+    def to_dict(self, interval=None):
+        if interval is None:
+            return {
+                iteration: {
+                    "eps": data.eps,
+                    "extremes": data.extremes,
+                    "trends": data.trends,
+                }
+                for iteration, data in self.__history.items()
+            }
+
+        return {
+            iteration: {
+                "eps": data.eps,
+                "extremes": data.extremes,
+                "trends": data.trends,
+                "interval": {
+                    "begin": interval[iteration].begin,
+                    "end": interval[iteration].end,
+                },
+            }
+            for iteration, data in self.__history.items()
+        }
+
+    def to_json(self, interval=None):
+        if interval is None:
+            return {
+                iteration: {
+                    "eps": data.eps,
+                    "extremes": data.extremes.tolist(),
+                    "trends": data.trends.tolist(),
+                }
+                for iteration, data in self.__history.items()
+            }
+
+        return {
+            iteration: {
+                "eps": data.eps,
+                "extremes": data.extremes.tolist(),
+                "trends": data.trends.tolist(),
+                "interval": {
+                    "begin": interval[iteration].begin,
+                    "end": interval[iteration].end,
+                },
+            }
+            for iteration, data in self.__history.items()
+        }
+
     def __repr__(self, interval=None):
         _str = f"<<<<<<<<<<<{self.__class__.__name__:^19}>>>>>>>>>>>\n"
         if interval is not None:
