@@ -14,40 +14,7 @@ class _Interval:
     end: int
 
 
-class _Node:
-    def __init__(
-        self,
-        _previous: "_Node" = None,
-        _next: "_Node" = None,
-    ):
-        self._next = None
-        self._previous = None
-        self._history_interval: dict[int, _Interval] = {}
-
-    @property
-    def next(self):
-        return self._next
-
-    @next.setter
-    def next(self, values):
-        self._next = values
-
-    @property
-    def previous(self):
-        return self._previous
-
-    @previous.setter
-    def previous(self, values):
-        self._previous = values
-
-    def get_begin_index(self, after_iter: int):
-        return self._history_interval[after_iter].begin
-
-    def get_end_index(self, after_iter: int):
-        return self._history_interval[after_iter].end
-
-
-class NodeMinExtremes(_Node, MinExtremes):
+class NodeMinExtremes(MinExtremes):
 
     def __init__(
         self,
@@ -55,58 +22,7 @@ class NodeMinExtremes(_Node, MinExtremes):
         _previous: "NodeMinExtremes" = None,
         _next: "NodeMinExtremes" = None,
     ):
-        _Node.__init__(self=self, _previous=_previous, _next=_next)
-        MinExtremes.__init__(self=self, values=values)
-
-        self._next = _next
-        self._previous = _previous
-
-        _start = (
-            0
-            if self.previous is None
-            else self.previous.get_end_index(self.get_current_iter())
-        )
-        self._history_interval: dict[int, _Interval] = {
-            self.get_current_iter(): _Interval(_start, _start + len(values)),
-        }
-
-    def to_dict(self, **kwargs):
-        return super().to_dict(interval=self.__history)
-
-    def to_json(self, **kwargs):
-        return super().to_json(interval=self.__history)
-
-    def _save_extremes(
-        self,
-        eps: int,
-        extremes: np.ndarray,
-        prepare: Callable[[np.ndarray], np.ndarray] = None,
-    ):
-        super()._save_extremes(eps=eps, extremes=extremes, prepare=prepare)
-
-        _start = (
-            0
-            if self.previous is None
-            else self.previous.get_end_index(self.get_current_iter())
-        )
-        self._history_interval[self.get_current_iter()] = _Interval(
-            begin=_start, end=_start + len(self.get_extr_indexes())
-        )
-
-    def __repr__(self, **kwargs):
-        return super().__repr__(self._history_interval)
-
-
-class NodeMaxExtremes(_Node, MaxExtremes):
-
-    def __init__(
-        self,
-        values: np.ndarray,
-        _previous: "NodeMaxExtremes" = None,
-        _next: "NodeMaxExtremes" = None,
-    ):
-        _Node.__init__(self=self, _previous=_previous, _next=_next)
-        MaxExtremes.__init__(self=self, values=values)
+        super().__init__(values=values)
 
         self.__next = _next
         self.__previous = _previous
@@ -119,6 +35,30 @@ class NodeMaxExtremes(_Node, MaxExtremes):
         self.__history: dict[int, _Interval] = {
             self.get_current_iter(): _Interval(_start, _start + len(values)),
         }
+
+    @property
+    def next(self) -> "NodeMinExtremes":
+        return self.__next
+
+    @next.setter
+    def next(self, values: "NodeMinExtremes"):
+        self.__next = values
+
+    @property
+    def previous(self) -> "NodeMinExtremes":
+        return self.__previous
+
+    @previous.setter
+    def previous(self, values: "NodeMinExtremes"):
+        self.__previous = values
+
+    def get_begin_index(self, after_iter: int):
+        after_iter = self._validate(after_iter=after_iter)
+        return self.__history[after_iter].begin
+
+    def get_end_index(self, after_iter: int):
+        after_iter = self._validate(after_iter=after_iter)
+        return self.__history[after_iter].end
 
     def to_dict(self, **kwargs):
         return super().to_dict(interval=self.__history)
@@ -147,7 +87,80 @@ class NodeMaxExtremes(_Node, MaxExtremes):
         return super().__repr__(self.__history)
 
 
-class NodeUnionExtremes(_Node, UnionExtremes):
+class NodeMaxExtremes(MaxExtremes):
+
+    def __init__(
+        self,
+        values: np.ndarray,
+        _previous: "NodeMaxExtremes" = None,
+        _next: "NodeMaxExtremes" = None,
+    ):
+        super().__init__(values=values)
+
+        self.__next = _next
+        self.__previous = _previous
+
+        _start = (
+            0
+            if self.previous is None
+            else self.previous.get_end_index(self.get_current_iter())
+        )
+        self.__history: dict[int, _Interval] = {
+            self.get_current_iter(): _Interval(_start, _start + len(values)),
+        }
+
+    @property
+    def next(self) -> "NodeMaxExtremes":
+        return self.__next
+
+    @next.setter
+    def next(self, values: "NodeMaxExtremes"):
+        self.__next = values
+
+    @property
+    def previous(self) -> "NodeMaxExtremes":
+        return self.__previous
+
+    @previous.setter
+    def previous(self, values: "NodeMaxExtremes"):
+        self.__previous = values
+
+    def get_begin_index(self, after_iter: int):
+        after_iter = self._validate(after_iter=after_iter)
+        return self.__history[after_iter].begin
+
+    def get_end_index(self, after_iter: int):
+        after_iter = self._validate(after_iter=after_iter)
+        return self.__history[after_iter].end
+
+    def to_dict(self, **kwargs):
+        return super().to_dict(interval=self.__history)
+
+    def to_json(self, **kwargs):
+        return super().to_json(interval=self.__history)
+
+    def _save_extremes(
+        self,
+        eps: int,
+        extremes: np.ndarray,
+        prepare: Callable[[np.ndarray], np.ndarray] = None,
+    ):
+        super()._save_extremes(eps=eps, extremes=extremes, prepare=prepare)
+
+        _start = (
+            0
+            if self.previous is None
+            else self.previous.get_end_index(self.get_current_iter())
+        )
+        self.__history[self.get_current_iter()] = _Interval(
+            begin=_start, end=_start + len(self.get_extr_indexes())
+        )
+
+    def __repr__(self, **kwargs):
+        return super().__repr__(self.__history)
+
+
+class NodeUnionExtremes(UnionExtremes):
 
     def __init__(
         self,
@@ -175,12 +188,8 @@ class NodeUnionExtremes(_Node, UnionExtremes):
             values=values, _previous=_previous_max_extremes, _next=_next_max_extremes
         )
 
-        _Node.__init__(self=self, _previous=_previous, _next=_next)
-        UnionExtremes.__init__(
-            self=self,
-            values=values,
-            min_extremes=_min_extremes,
-            max_extremes=_max_extremes,
+        super().__init__(
+            values=values, min_extremes=_min_extremes, max_extremes=_max_extremes
         )
 
         _start = (
@@ -191,6 +200,30 @@ class NodeUnionExtremes(_Node, UnionExtremes):
         self.__history: dict[int, _Interval] = {
             self.get_current_iter(): _Interval(_start, _start + len(values)),
         }
+
+    @property
+    def next(self) -> "NodeUnionExtremes":
+        return self.__next
+
+    @next.setter
+    def next(self, values: "NodeUnionExtremes"):
+        self.__next = values
+
+    @property
+    def previous(self) -> "NodeUnionExtremes":
+        return self.__previous
+
+    @previous.setter
+    def previous(self, values: "NodeUnionExtremes"):
+        self.__previous = values
+
+    def get_begin_index(self, after_iter: int):
+        after_iter = self._validate(after_iter=after_iter)
+        return self.__history[after_iter].begin
+
+    def get_end_index(self, after_iter: int):
+        after_iter = self._validate(after_iter=after_iter)
+        return self.__history[after_iter].end
 
     def to_dict(self, **kwargs):
         return super().to_dict(interval=self.__history)
