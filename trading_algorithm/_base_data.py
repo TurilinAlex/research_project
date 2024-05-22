@@ -67,7 +67,7 @@ class BaseData:
         }
 
     def __repr__(self, interval=None):
-        _str = f"<<<<<<<<<<<{self.__class__.__name__:^19}>>>>>>>>>>>\n"
+        _str = f"<<<<<<<<<<<{self.__class__.__name__:^19}>>>>>>>>>>>\nValues={self._values}\n"
         if interval is not None:
             for key, value in self.__history.items():
                 _eps = f"{'eps:':>13} {value.eps:<6d}\n" if value.eps != 0 else ""
@@ -152,7 +152,10 @@ class BaseData:
     def _get_trend_values(self, after_iter: int | None):
         return self._values[self._get_trend_indexes(after_iter=after_iter)]
 
-    def __validate(self, after_iter: int):
+    def _validate(self, after_iter: int | None):
+        if after_iter is None:
+            return self.__iteration
+
         if 0 <= after_iter <= self.__iteration:
             return after_iter
 
@@ -162,8 +165,5 @@ class BaseData:
         )
 
     def __extract(self, after_iter, attr: str) -> int | np.ndarray:
-        if after_iter is None:
-            return getattr(self.__history[self.__iteration], attr)
-
-        after_iter = self.__validate(after_iter=after_iter)
+        after_iter = self._validate(after_iter=after_iter)
         return getattr(self.__history[after_iter], attr)
