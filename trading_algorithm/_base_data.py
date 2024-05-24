@@ -166,4 +166,8 @@ class BaseData:
 
     def __extract(self, after_iter, attr: str) -> int | np.ndarray:
         after_iter = self._validate(after_iter=after_iter)
+
+        if after_iter == 0:
+            return np.arange(len(self._values), dtype=np.int32)
+
         return getattr(self.__history[after_iter], attr)
