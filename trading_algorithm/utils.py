@@ -25,6 +25,10 @@ def max_extremum(index: np.ndarray[np.uint32], eps: int) -> np.ndarray[np.uint32
 
 def merge_sorted_arrays(min_indexes: np.ndarray, max_indexes: np.ndarray) -> np.ndarray:
     i, j, k = 0, 0, 0
+
+    if len(min_indexes) == len(max_indexes) == 1 and np.all(min_indexes == max_indexes):
+        return np.array(min_indexes)
+
     merged_array = np.empty(
         len(min_indexes) + len(max_indexes), dtype=min_indexes.dtype
     )
