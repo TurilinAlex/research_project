@@ -102,7 +102,7 @@ class BaseCombinationExtremes(BaseData, ABC):
         pass
 
     @abstractmethod
-    def _combination_extremes(
+    def combination_extremes(
         self,
         min_extremes: np.ndarray,
         max_extremes: np.ndarray,
@@ -110,7 +110,7 @@ class BaseCombinationExtremes(BaseData, ABC):
         pass
 
     @abstractmethod
-    def _combination_trends(
+    def combination_trends(
         self,
         min_trends: np.ndarray,
         max_trends: np.ndarray,
