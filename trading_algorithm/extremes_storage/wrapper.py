@@ -53,11 +53,11 @@ class NodeMinExtremes(MinExtremes):
         self.__previous = values
 
     def get_begin_index(self, after_iter: int):
-        after_iter = self._validate(after_iter=after_iter)
+        after_iter = self.after_iter_validate(after_iter=after_iter)
         return self.__history[after_iter].begin
 
     def get_end_index(self, after_iter: int):
-        after_iter = self._validate(after_iter=after_iter)
+        after_iter = self.after_iter_validate(after_iter=after_iter)
         return self.__history[after_iter].end
 
     def to_dict(self, **kwargs):
@@ -126,11 +126,11 @@ class NodeMaxExtremes(MaxExtremes):
         self.__previous = values
 
     def get_begin_index(self, after_iter: int):
-        after_iter = self._validate(after_iter=after_iter)
+        after_iter = self.after_iter_validate(after_iter=after_iter)
         return self.__history[after_iter].begin
 
     def get_end_index(self, after_iter: int):
-        after_iter = self._validate(after_iter=after_iter)
+        after_iter = self.after_iter_validate(after_iter=after_iter)
         return self.__history[after_iter].end
 
     def to_dict(self, **kwargs):
@@ -218,11 +218,11 @@ class NodeUnionExtremes(UnionExtremes):
         self.__previous = values
 
     def get_begin_index(self, after_iter: int):
-        after_iter = self._validate(after_iter=after_iter)
+        after_iter = self.after_iter_validate(after_iter=after_iter)
         return self.__history[after_iter].begin
 
     def get_end_index(self, after_iter: int):
-        after_iter = self._validate(after_iter=after_iter)
+        after_iter = self.after_iter_validate(after_iter=after_iter)
         return self.__history[after_iter].end
 
     def to_dict(self, **kwargs):

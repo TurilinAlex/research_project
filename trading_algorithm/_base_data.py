@@ -152,7 +152,7 @@ class BaseData:
     def _get_trend_values(self, after_iter: int | None):
         return self._values[self._get_trend_indexes(after_iter=after_iter)]
 
-    def _validate(self, after_iter: int | None):
+    def after_iter_validate(self, after_iter: int | None):
         if after_iter is None:
             return self.__iteration
 
@@ -165,7 +165,7 @@ class BaseData:
         )
 
     def __extract(self, after_iter, attr: str) -> int | np.ndarray:
-        after_iter = self._validate(after_iter=after_iter)
+        after_iter = self.after_iter_validate(after_iter=after_iter)
 
         if after_iter == 0:
             return np.arange(len(self._values), dtype=np.int32)
