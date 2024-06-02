@@ -59,7 +59,7 @@ class UnionExtremes(BaseCombinationExtremes):
         indexes_max = self._max_extremes.get_extr_indexes(after_iter=after_iter)
         trends_max = self._max_extremes._extract_trends(indexes=indexes_max, eps=eps)
 
-        trends = self.combination_trends(trends_min=trends_min, trends_max=trends_max)
+        trends = self.combination_trends(min_trends=trends_min, max_trends=trends_max)
         if is_save:
             self._save_trends(trends=trends, after_iter=after_iter)
             self._min_extremes._save_trends(
@@ -82,7 +82,7 @@ class UnionExtremes(BaseCombinationExtremes):
 
     def combination_trends(
         self,
-        trends_min: np.ndarray,
-        trends_max: np.ndarray,
+        min_trends: np.ndarray,
+        max_trends: np.ndarray,
     ):
-        return merge_sorted_arrays(min_indexes=trends_min, max_indexes=trends_max)
+        return merge_sorted_arrays(min_indexes=min_trends, max_indexes=max_trends)
