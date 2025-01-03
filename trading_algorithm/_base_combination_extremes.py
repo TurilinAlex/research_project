@@ -32,12 +32,6 @@ class BaseCombinationExtremes(BaseData, ABC):
     def get_extr_eps_max(self, after_iter: int | None = None):
         return self._max_extremes.get_extr_eps(after_iter=after_iter)
 
-    def get_extr_indexes(self, after_iter: int | None = None):
-        return self._get_extr_indexes(after_iter=after_iter)
-
-    def get_extr_values(self, after_iter: int | None = None):
-        return self._get_extr_values(after_iter=after_iter)
-
     def get_extr_indexes_min(self, after_iter: int | None = None):
         return self._min_extremes.get_extr_indexes(after_iter=after_iter)
 
@@ -50,12 +44,6 @@ class BaseCombinationExtremes(BaseData, ABC):
     def get_extr_values_max(self, after_iter: int | None = None):
         return self._max_extremes.get_extr_values(after_iter=after_iter)
 
-    def get_trends_indexes(self, after_iter: int | None = None):
-        return self._get_trend_indexes(after_iter=after_iter)
-
-    def get_trends_values(self, after_iter: int | None = None):
-        return self._get_trend_values(after_iter=after_iter)
-
     def get_trends_indexes_min(self, after_iter: int | None = None):
         return self._min_extremes.get_trends_indexes(after_iter=after_iter)
 
@@ -67,21 +55,6 @@ class BaseCombinationExtremes(BaseData, ABC):
 
     def get_trends_values_max(self, after_iter: int | None = None):
         return self._max_extremes.get_trends_values(after_iter=after_iter)
-
-    def to_dict(self, **kwargs):
-        _dict = {}
-        for syb_interval, data in super().to_dict(**kwargs).items():
-            del data["eps"]
-            _dict[syb_interval] = data
-
-        return _dict
-
-    def to_json(self, **kwargs):
-        _dict = super().to_json(**kwargs)
-        for syb_interval, data in _dict.items():
-            del data["eps"]
-
-        return _dict
 
     @abstractmethod
     def extract_extremes(

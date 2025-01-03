@@ -18,6 +18,9 @@ class BaseMaxExtremes(BaseExtremes, ABC):
 
         diff_between_indexes_max(indexes, self._diff, self._marker_for_diff, n, eps)
 
+        if self.get_current_iter() == 0:
+            self._diff_start = self._diff.copy()
+
     def _localize_trends(self, indexes: np.ndarray, eps: int):
         return extract_max_extremes(indexes, len(indexes), eps)
 

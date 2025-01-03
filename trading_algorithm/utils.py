@@ -59,7 +59,7 @@ def merge_sorted_arrays_custom(
     extr_min_index: np.ndarray[np.uint32],
     extr_max_index: np.ndarray[np.uint32],
     values: np.ndarray[np.float32],
-):
+):  # sourcery skip: assign-if-exp, reintroduce-else
     def get_status():
         if i < len(extr_min_index) and j < len(extr_max_index):
             if extr_max_index[j] < extr_min_index[i]:

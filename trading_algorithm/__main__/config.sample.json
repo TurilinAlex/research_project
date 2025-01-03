@@ -10,5 +10,10 @@
     1
   ],
   "trend_eps": 1,
-  "split": 1
+  "chunksize": 1440,
+  "start": 0,
+  "stop": 0,
+  "slider_start": 0,
+  "slider_stop": 0,
+  "cache": {}
 }

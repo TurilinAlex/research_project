@@ -18,6 +18,21 @@ class BaseData:
         self.__history: dict[int, HistoryData] = {}
         self.__iteration: int = 0
 
+    def get_extr_eps(self, after_iter: int | None = None):
+        return self._get_extr_eps(after_iter=after_iter)
+
+    def get_extr_indexes(self, after_iter: int | None = None):
+        return self._get_extr_indexes(after_iter=after_iter)
+
+    def get_extr_values(self, after_iter: int | None = None):
+        return self._get_extr_values(after_iter=after_iter)
+
+    def get_trends_indexes(self, after_iter: int | None = None):
+        return self._get_trend_indexes(after_iter=after_iter)
+
+    def get_trends_values(self, after_iter: int | None = None):
+        return self._get_trend_values(after_iter=after_iter)
+
     def to_dict(self, interval=None):
         if interval is None:
             return {
@@ -89,6 +104,8 @@ class BaseData:
                 f"{'trends:':>13} {value.trends}\n"
             )
         return _str
+
+    __str__ = __repr__
 
     def get_current_iter(self):
         return self.__iteration
@@ -164,10 +181,13 @@ class BaseData:
             f"Current iter 0 <= {after_iter} <= {self.__iteration}"
         )
 
-    def __extract(self, after_iter, attr: str) -> int | np.ndarray:
+    def __extract(self, after_iter, attr: str) -> int | np.ndarray | None:
         after_iter = self.after_iter_validate(after_iter=after_iter)
 
-        if after_iter == 0:
+        if after_iter == 0 and attr == "extremes":
             return np.arange(len(self._values), dtype=np.int32)
+
+        if after_iter == 0 and attr == "trends":
+            return np.array([], dtype=np.int32)
 
         return getattr(self.__history[after_iter], attr)

@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 import numpy as np
-
 from trading_math import localize_extremes, select_eps
 
 from ._base_data import BaseData
@@ -13,20 +12,14 @@ class BaseExtremes(BaseData, ABC):
         self._diff: list[int] | None = None
         self._marker_for_diff: list[int] | None = None
 
-    def get_extr_eps(self, after_iter: int | None = None):
-        return self._get_extr_eps(after_iter=after_iter)
+        self._diff_start: list[int] | None = None
 
-    def get_extr_indexes(self, after_iter: int | None = None):
-        return self._get_extr_indexes(after_iter=after_iter)
+    def get_eps_relatively_input(self, after_iter: int) -> int:
+        if after_iter == 1:
+            return self.get_extr_eps(after_iter=after_iter)
 
-    def get_extr_values(self, after_iter: int | None = None):
-        return self._get_extr_values(after_iter=after_iter)
-
-    def get_trends_indexes(self, after_iter: int | None = None):
-        return self._get_trend_indexes(after_iter=after_iter)
-
-    def get_trends_values(self, after_iter: int | None = None):
-        return self._get_trend_values(after_iter=after_iter)
+        indexes = self.get_extr_indexes(after_iter=after_iter)
+        return min(self._diff_start[i] for i in indexes) - 1
 
     def _extract_extremes(
         self,
@@ -47,9 +40,7 @@ class BaseExtremes(BaseData, ABC):
         return indexes[temp_trends]
 
     def _select_eps(self, coincident: int, eps: int):
-        return select_eps(
-            self._marker_for_diff, len(self._marker_for_diff), coincident, eps
-        )
+        return select_eps(self._marker_for_diff, len(self._marker_for_diff), coincident, eps)
 
     def _localize_extremes(self, eps: int) -> np.ndarray:
         return localize_extremes(self._diff, len(self._diff), eps)
