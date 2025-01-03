@@ -159,6 +159,7 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
-/trading_algorithm/__main__/assets/tooltip.js
 /trading_algorithm/__main__/config.json
 /trading_algorithm/__main__/dash_temp.py
+/trading_algorithm/__main__/assets/uploaded_file.csv
+/trading_algorithm/__main__/assets/dates_for_tooltip.json
